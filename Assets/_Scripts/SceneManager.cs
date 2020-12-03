@@ -28,5 +28,9 @@ public class SceneManager : MonoBehaviour
        UnityEngine.SceneManagement.SceneManager.LoadScene("PlayScene", LoadSceneMode.Single);
     }
 
+    public void GoToTest()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StartSceneVince", LoadSceneMode.Single);
+    }
     
 }
