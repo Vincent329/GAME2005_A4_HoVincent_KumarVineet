@@ -5,18 +5,22 @@ using UnityEngine;
 public class SphereProperties : MonoBehaviour
 {
     // Start is called before the first frame update
-    Vector3 position;
-    float lifeDuration = 500; // milliseconds I guess?
+    public Vector3 forward;
+    public float speed;
+    float lifeDuration = 500; // counting up to 500 frames
     float lifeStart;
 
-    void OnAwake()
+    void Awake()
     {
-        lifeStart = 0;        
+        lifeStart = 0;
+        speed = 5.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //forward = transform.forward;
+        transform.Translate(forward * speed * Time.deltaTime); 
         lifeStart++;
         if (lifeStart > lifeDuration)
         {
