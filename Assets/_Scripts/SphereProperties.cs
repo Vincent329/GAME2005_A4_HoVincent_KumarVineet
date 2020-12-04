@@ -6,14 +6,13 @@ public class SphereProperties : MonoBehaviour
 {
     // Start is called before the first frame update
     public Vector3 forward;
-    public float speed;
+    public float speed = 10;
     float lifeDuration = 500; // counting up to 500 frames
     float lifeStart;
 
     void Awake()
     {
         lifeStart = 0;
-        speed = 5.0f;
     }
 
     // Update is called once per frame
@@ -33,4 +32,5 @@ public class SphereProperties : MonoBehaviour
         gameObject.SetActive(false);
         lifeStart = 0;
     }
+
 }

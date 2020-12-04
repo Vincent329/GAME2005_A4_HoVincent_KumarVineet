@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -42,7 +44,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
-
+        GameObject blah;
 
         // Use this for initialization
         private void Start()
@@ -92,11 +94,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             m_AudioSource.Play();
             m_NextStep = m_StepCycle + .5f;
         }
-        public void ShootBall()
-        {
-           // GameObject bullet = BulletPool.sharedInstance.GetPooledObject();
-           // GameObject bullet = BulletPool.sharedInstance.GetPooledObject();
-        }
+       
 
         private void FixedUpdate()
         {
