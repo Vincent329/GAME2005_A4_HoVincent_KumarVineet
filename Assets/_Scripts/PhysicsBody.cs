@@ -8,6 +8,7 @@ public class PhysicsBody : MonoBehaviour
     public float mass;
     public Vector3 velocity;
     public Vector3 acceleration;
+    public float restitution; // bounciness
 
     //void Start()
     //{
