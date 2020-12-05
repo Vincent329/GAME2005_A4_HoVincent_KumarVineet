@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Contacts
+{
+    public GameObject contact;
+    public Vector3 getNormal;
+}
+
 [System.Serializable]
 public class CollisionManager : MonoBehaviour
 {
@@ -38,6 +44,7 @@ public class CollisionManager : MonoBehaviour
             {
                 a.contacts.Add(b);
                 a.isColliding = true;
+                Vector3 normals = a.transform.position - b.transform.position;
             }
         }
         else
