@@ -7,7 +7,6 @@ public class Gun : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -19,14 +18,15 @@ public class Gun : MonoBehaviour
         }
     }
 
+    // get the component of the bullet
     public void ShootBall()
     {
         GameObject bullet = BulletPool.sharedInstance.GetPooledObject();
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
-            bullet.transform.position = transform.position;
-            bullet.GetComponent<SphereProperties>().forward = transform.forward;
+            //bullet.GetComponent<SphereProperties>().forward = transform.forward;
+            bullet.GetComponent<PhysicsBody>().forward = transform.forward;
             bullet.SetActive(true);
         }
     }

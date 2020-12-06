@@ -9,15 +9,24 @@ public class PhysicsBody : MonoBehaviour
     public Vector3 velocity;
     public Vector3 acceleration;
     public float restitution; // bounciness
+    public float speed; // speed of velocity
+    public float gravity;
+    public Vector3 forward;
 
-    //void Start()
-    //{
-        
-    //}
+    void OnEnable()
+    {
+        velocity = forward * speed;
+        acceleration = new Vector3(0.0f, gravity, 0.0f);
+    }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
+    // Update is called once per frame
+    void Update()
+    {
+        velocity += acceleration * Time.deltaTime;
+
+
+        //velocity += acceleration * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime;
+        Debug.Log(acceleration);
+    }
 }

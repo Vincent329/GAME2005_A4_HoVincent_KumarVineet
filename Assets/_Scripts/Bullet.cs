@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float groundLevel = GameObject.Find("Floor").transform.position.y;
+    public float groundLevel; // = GameObject.Find("Floor").transform.position.y;
     public Vector3 m_velocity, m_acceleration;
 
     private bool m_active;
@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        groundLevel = GameObject.Find("Floor").transform.position.y;
         Reset();
     }
 

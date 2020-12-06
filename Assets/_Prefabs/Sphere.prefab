@@ -95,8 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b064ab2bccfa6b74ab499faa96df6ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forward: {x: 0, y: 0, z: 0}
-  speed: 10
+  speed: 0
 --- !u!114 &1821919408391138452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -109,3 +108,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f25a0e395344043bf3d728afc13b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mass: 0
+  velocity: {x: 0, y: 0, z: 0}
+  acceleration: {x: 0, y: 0, z: 0}
+  restitution: 0
+  speed: 15
+  gravity: -9.8
+  forward: {x: 0, y: 0, z: 0}
