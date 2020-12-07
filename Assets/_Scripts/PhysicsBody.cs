@@ -27,9 +27,6 @@ public class PhysicsBody : MonoBehaviour
     void Update()
     {
         velocity += acceleration * Time.deltaTime;
-
-        //Debug.Log("Velocity = " + velocity);
-        //velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
         //Debug.Log(acceleration);
         
