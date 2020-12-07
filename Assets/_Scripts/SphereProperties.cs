@@ -52,21 +52,8 @@ public class SphereProperties : MonoBehaviour
         lifeStart++;
         if (lifeStart > lifeDuration)
         {
-           // Despawn();
+            Despawn();
         }
-        /*switch(bulletNumber)
-        {
-            case 0:
-            Debug.Log("Bullet number = " + bulletNumber );
-            break;
-
-            case 1:
-             Debug.Log("Bullet number = " + bulletNumber);
-            break;
-
-            default:
-            break;
-        }*/
     }
 
     void Despawn()
