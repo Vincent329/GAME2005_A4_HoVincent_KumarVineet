@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PhysicsBody : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class PhysicsBody : MonoBehaviour
     public float gravity;
     public Vector3 forward;
 
+    // Debug Text
+    Text debugText;
+
     void OnEnable()
     {
         velocity = forward * speed;
@@ -24,9 +28,10 @@ public class PhysicsBody : MonoBehaviour
     {
         velocity += acceleration * Time.deltaTime;
 
-
+        //Debug.Log("Velocity = " + velocity);
         //velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
-        Debug.Log(acceleration);
+        //Debug.Log(acceleration);
+        
     }
 }

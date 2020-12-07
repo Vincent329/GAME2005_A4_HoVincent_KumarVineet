@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // GUN UPDATE FOR GETTING INPUT OF LMB!
         if (Input.GetMouseButtonDown(0))
         {
             ShootBall();
@@ -28,6 +29,7 @@ public class Gun : MonoBehaviour
             //bullet.GetComponent<SphereProperties>().forward = transform.forward;
             bullet.GetComponent<PhysicsBody>().forward = transform.forward;
             bullet.SetActive(true);
+            //Debug.Log("Active State = " + bullet.active);
         }
     }
 }

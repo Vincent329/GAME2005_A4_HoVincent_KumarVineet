@@ -22,6 +22,11 @@ public class BulletPool : MonoBehaviour
             tmp = Instantiate(objectToPool); // instantiates all the bullets at the start
             tmp.SetActive(false);
             pooledObjects.Add(tmp);
+            
+            //if(!tmp.active)
+            //{
+            //    Debug.Log("Hi");
+            //}
         }
     }
 
