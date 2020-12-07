@@ -14,9 +14,12 @@ public class CubeBehaviour : MonoBehaviour
     public Vector3 min;
     public bool isColliding;
     public List<CubeBehaviour> contacts;
+    public List<SphereProperties> sphereContacts;
 
     private MeshFilter meshFilter;
     private Bounds bounds;
+
+    
 
     // Start is called before the first frame update
     void Start()

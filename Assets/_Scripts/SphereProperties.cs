@@ -15,16 +15,16 @@ public class SphereProperties : MonoBehaviour
     public bool isColliding;
     static int staticNumber;
     int bulletNumber;
-   // public PhysicsBody pb;
+    private PhysicsBody pb;
 
     // Sphere experimental(ly driving crazy now.)
     private MeshFilter meshFilter;
     private float m_radius;
     private Bounds m_bounds;
     Vector3 m_scale;
-    Vector3 min,max;
+    Vector3 min, max;
 
-   // public PhysicsBody
+    // public PhysicsBody
     void Awake()
     {
         lifeStart = 0;
@@ -41,7 +41,7 @@ public class SphereProperties : MonoBehaviour
         min = Vector3.Scale(m_bounds.min, transform.localScale) + transform.position;
         // Confirmed
         //Debug.Log("Radius = " + m_radius);
-        // pb = GetComponent<PhysicsBody>();
+        pb = GetComponent<PhysicsBody>();
     }
 
     // Update is called once per frame
@@ -50,7 +50,8 @@ public class SphereProperties : MonoBehaviour
         //forward = transform.forward;
         //transform.Translate(forward * speed * Time.deltaTime); 
         lifeStart++;
-        if (lifeStart > lifeDuration)
+        Debug.Log(Vector3.Magnitude(pb.velocity));
+        if (lifeStart >= lifeDuration)        
         {
             Despawn();
         }
@@ -62,18 +63,22 @@ public class SphereProperties : MonoBehaviour
         lifeStart = 0;
     }
 
-  
+
     // Got Skeletal Mesh Right, now use it for physics
-     void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         // Display the explosion radius when selected
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position,m_radius);
+        Gizmos.DrawWireSphere(transform.position, m_radius);
     }
 
-     public float getRadius()
-     {
-         return m_radius;
-     }
+    public float getRadius()
+    {
+        return m_radius;
+    }
 
+    public void reverseY(CubeBehaviour cube)
+    {
+     
+    }
 }

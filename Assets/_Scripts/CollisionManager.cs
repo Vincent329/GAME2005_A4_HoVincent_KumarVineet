@@ -13,7 +13,6 @@ public class Contacts
 public class CollisionManager : MonoBehaviour
 {
     public CubeBehaviour[] cubeActors;
-    
     //public 
     public SphereProperties[] sphereActors;
 
@@ -24,7 +23,7 @@ public class CollisionManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         for (int i = 0; i < cubeActors.Length; i++)
         {
@@ -36,14 +35,14 @@ public class CollisionManager : MonoBehaviour
                 }
             }
         }
-
         sphereActors = FindObjectsOfType<SphereProperties>();
+
         for (int i = 0; i < sphereActors.Length; i++)
         {
             Debug.Log("Length = " + sphereActors.Length);
             for (int j = 0; j < cubeActors.Length; j++)
             {
-                SphereAABB(sphereActors[i],cubeActors[j]);
+                SphereAABB(sphereActors[i], cubeActors[j]);
             }
         }
     }
@@ -54,10 +53,12 @@ public class CollisionManager : MonoBehaviour
             (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
         {
+           
             if (!a.contacts.Contains(b))
             {
                 a.contacts.Add(b);
                 a.isColliding = true;
+                b.isColliding = true;
                 Vector3 normals = a.transform.position - b.transform.position;
             }
         }
@@ -67,8 +68,10 @@ public class CollisionManager : MonoBehaviour
             {
                 a.contacts.Remove(b);
                 a.isColliding = false;
+                b.isColliding = false;
+
             }
-           
+
         }
     }
 
@@ -87,15 +90,38 @@ public class CollisionManager : MonoBehaviour
             (z - sphere.transform.position.z) * (z - sphere.transform.position.z)
         );
 
+        Vector3 distanceVector = cube.transform.position - sphere.transform.position; // distance from object 1 to object 2
+        Vector3 normalizedVector = Vector3.Normalize(distanceVector); // normalized distance vector
+
+
+
         if (distance < sphere.getRadius())
         {
-            Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
-            sphere.isColliding = true;
+            float depth = sphere.getRadius() - (float)distance;
+
+            if (!cube.sphereContacts.Contains(sphere))
+            {
+                //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
+                sphere.isColliding = true; // it's only changing when it's the floor
+                cube.isColliding = true;
+                cube.sphereContacts.Add(sphere);
+                sphere.GetComponent<PhysicsBody>().CollisionResponseCube(cube);
+            }
         }
         else
         {
-            Debug.Log(sphere.name + " is Not Colliding with " + cube.name + " !");
-            sphere.isColliding = false;
+            if (cube.sphereContacts.Contains(sphere))
+            {
+                //Debug.Log(sphere.name + " is Not Colliding with " + cube.name + " !");
+                cube.sphereContacts.Remove(sphere);
+                sphere.isColliding = false;
+            }
         }
     }
+    public static void SphereSphereCollision(SphereProperties a, SphereProperties b)
+    {
+
+    }
+
+   
 }
