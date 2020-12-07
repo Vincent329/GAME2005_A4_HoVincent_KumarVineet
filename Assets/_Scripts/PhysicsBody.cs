@@ -28,8 +28,7 @@ public class PhysicsBody : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        velocity += acceleration * Time.fixedDeltaTime;
-        transform.position += velocity * Time.fixedDeltaTime;
+      
         //Debug.Log(acceleration);
         if (gameObject.GetComponent<CubeBehaviour>() != null)
         {
@@ -46,6 +45,8 @@ public class PhysicsBody : MonoBehaviour
                 }
             }
         }
+        velocity += acceleration * Time.fixedDeltaTime;
+        transform.position += velocity * Time.fixedDeltaTime;
     }
 
     // responding to the collision by changing the relative velocity of objects
