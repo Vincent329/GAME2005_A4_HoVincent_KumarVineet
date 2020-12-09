@@ -23,7 +23,7 @@ public class CollisionManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // check for cubes
         for (int i = 0; i < cubeActors.Length; i++)
@@ -66,15 +66,20 @@ public class CollisionManager : MonoBehaviour
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
         {
            
-            if (!a.contacts.Contains(b) && a.tag == "Box")
+            if (!a.contacts.Contains(b))
             {
+                //Debug.Break();
                 Debug.Log("In contains function..");
                 a.contacts.Add(b);
                 a.isColliding = true;
                 b.isColliding = true;
                 Vector3 normals = a.transform.position - b.transform.position;
-              //  if check pending ... generic box behavior implement here...
-               
+                // if check pending ... generic box behavior implement here...
+                // CollisionResponseCubeCube(cubes);
+                if (a.tag == "Box")
+                {
+                    a.GetComponent<PhysicsBody>().CollisionResponseCubeCube(b);
+                }
             }
         }
         else
@@ -85,7 +90,6 @@ public class CollisionManager : MonoBehaviour
                 a.contacts.Remove(b);
                 a.isColliding = false;
                 b.isColliding = false;
-
             }
 
         }

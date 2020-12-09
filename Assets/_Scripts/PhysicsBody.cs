@@ -26,26 +26,29 @@ public class PhysicsBody : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        velocity += acceleration * Time.fixedDeltaTime;
-        transform.position += velocity * Time.fixedDeltaTime;
+        // Using deltatime now..
+        velocity += acceleration * Time.deltaTime;
+        transform.position += velocity * Time.deltaTime;
         
         //Debug.Log(acceleration);
+        // Keeping IF in case the cubebehaviour collision check is needed for spheres
         if (gameObject.GetComponent<CubeBehaviour>() != null)
         {
             if (gameObject.GetComponent<CubeBehaviour>().isColliding)
             {
                 // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
-                foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
-                {
-                    //Debug.Log(velocity);
-                    if (cubes.tag == "Box")
-                    {
-                        //Debug.Log(acceleration);
-                        CollisionResponseCubeCube(cubes);
-                    }
-                }
+                //foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
+                //{
+                //    //Debug.Log(velocity);
+                //    if (cubes.tag == "Box")
+                //    {
+                //        //Debug.Log(acceleration);
+                //        Debug.Log("In Collision detection Response of Cube Cube");
+                        
+                //    }
+                //}
                 //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
                 //{
                 //    CollisionResponseSphere(spheres);
@@ -63,7 +66,7 @@ public class PhysicsBody : MonoBehaviour
     // creating a separate class for cube cube collision response for now
     public void CollisionResponseCubeCube(CubeBehaviour cube)
     {
-        //Debug.Break();
+        Debug.Log("In Response of Cube Cube");
         velocity.y *= 0.0f;
         acceleration.y *= 0.0f;
     }
