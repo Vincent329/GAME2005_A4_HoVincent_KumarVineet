@@ -39,10 +39,10 @@ public class PhysicsBody : MonoBehaviour
                 {
                     CollisionResponseCube(cubes);
                 }
-                foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
-                {
-                    CollisionResponseSphere(spheres);
-                }
+                //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
+                //{
+                //    CollisionResponseSphere(spheres);
+                //}
             }
         }
         velocity += acceleration * Time.fixedDeltaTime;
@@ -78,14 +78,14 @@ public class PhysicsBody : MonoBehaviour
         }
     }
 
-    public void CollisionResponseSphere(SphereProperties sphere)
-    {
-        PhysicsBody spheresPB = sphere.GetComponent<PhysicsBody>();
+    //public void CollisionResponseSphere(SphereProperties sphere)
+    //{
+    //    PhysicsBody spheresPB = sphere.GetComponent<PhysicsBody>();
 
-        Vector3 finalVelocity;
-        finalVelocity =
-              ((mass - spheresPB.mass) / (mass + spheresPB.mass)) * velocity
-              + ((2 * spheresPB.mass) / (mass + spheresPB.mass)) * spheresPB.velocity;
-        velocity = finalVelocity * restitution;
-    }
+    //    Vector3 finalVelocity;
+    //    finalVelocity =
+    //          ((mass - spheresPB.mass) / (mass + spheresPB.mass)) * velocity
+    //          + ((2 * spheresPB.mass) / (mass + spheresPB.mass)) * spheresPB.velocity;
+    //    velocity = finalVelocity * restitution;
+    //}
 }

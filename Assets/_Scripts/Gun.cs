@@ -28,6 +28,7 @@ public class Gun : MonoBehaviour
             bullet.transform.position = transform.position;
             //bullet.GetComponent<SphereProperties>().forward = transform.forward;
             bullet.GetComponent<PhysicsBody>().forward = transform.forward;
+            //Debug.Log("Bullet Forward " + bullet.GetComponent<PhysicsBody>().forward);
             bullet.SetActive(true);
             //Debug.Log("Active State = " + bullet.active);
         }

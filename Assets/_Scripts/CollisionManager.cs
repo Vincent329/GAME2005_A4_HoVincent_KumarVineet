@@ -39,13 +39,22 @@ public class CollisionManager : MonoBehaviour
 
         for (int i = 0; i < sphereActors.Length; i++)
         {
-            Debug.Log("Length = " + sphereActors.Length);
+          //  Debug.Log("Length = " + sphereActors.Length);
             for (int j = 0; j < cubeActors.Length; j++)
             {
                 SphereAABB(sphereActors[i], cubeActors[j]);
             }
+            for (int k = 0; k < sphereActors.Length; k++)
+            {
+                if (i != k)
+                {
+                    SphereSphereCollision(sphereActors[i], sphereActors[k]);
+                }
+            }
         }
+
     }
+        
 
     public static void CheckAABBs(CubeBehaviour a, CubeBehaviour b)
     {
@@ -78,7 +87,7 @@ public class CollisionManager : MonoBehaviour
     // need to check collision for spheres
     public static void SphereAABB(SphereProperties sphere, CubeBehaviour cube)
     {
-        // Clamping
+        // Clamping, getting the closest point of the collision
         float x = Math.Max(cube.min.x, Math.Min(sphere.transform.position.x, cube.max.x));
         float y = Math.Max(cube.min.y, Math.Min(sphere.transform.position.y, cube.max.y));
         float z = Math.Max(cube.min.z, Math.Min(sphere.transform.position.z, cube.max.z));
@@ -90,9 +99,8 @@ public class CollisionManager : MonoBehaviour
             (z - sphere.transform.position.z) * (z - sphere.transform.position.z)
         );
 
-        Vector3 distanceVector = cube.transform.position - sphere.transform.position; // distance from object 1 to object 2
-        Vector3 normalizedVector = Vector3.Normalize(distanceVector); // normalized distance vector
-
+        //Vector3 distanceVector = cube.transform.position - sphere.transform.position; // distance from object 1 to object 2
+        //Vector3 normalizedVector = Vector3.Normalize(distanceVector); // normalized distance vector
 
 
         if (distance < sphere.getRadius())
@@ -101,8 +109,16 @@ public class CollisionManager : MonoBehaviour
 
             if (!cube.sphereContacts.Contains(sphere))
             {
+                Vector3 closestPoint = new Vector3(x, y, z);
+                Vector3 normalVector = new Vector3(x, y, z).normalized;
+                Vector3 reversedVector = new Vector3(-x, -y, -z).normalized;
+                Debug.Log("Closest Point Vector: " + closestPoint);
+                Debug.Log("Normal Vector: " + normalVector);
+                Debug.Log("reversed normal Vector: " + reversedVector);
+                Debug.Break();
+
                 //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
-                sphere.isColliding = true; // it's only changing when it's the floor
+                sphere.isColliding = true; // this checks for a split second
                 cube.isColliding = true;
                 cube.sphereContacts.Add(sphere);
                 sphere.GetComponent<PhysicsBody>().CollisionResponseCube(cube);
@@ -118,10 +134,20 @@ public class CollisionManager : MonoBehaviour
             }
         }
     }
+
     public static void SphereSphereCollision(SphereProperties a, SphereProperties b)
     {
+        double distance = Math.Sqrt((a.transform.position.x - b.transform.position.x) * (a.transform.position.x - b.transform.position.x)
+                                 + (a.transform.position.y - b.transform.position.y) * (a.transform.position.y - b.transform.position.y)
+                                 + (a.transform.position.z - b.transform.position.z) * (a.transform.position.z - b.transform.position.z));
 
+            float sumRadius = a.getRadius() + b.getRadius();
+
+        if (distance <= sumRadius)
+        {
+            Debug.Log("Sphere Collision");
+        }
     }
 
-   
+
 }

@@ -50,7 +50,7 @@ public class SphereProperties : MonoBehaviour
         //forward = transform.forward;
         //transform.Translate(forward * speed * Time.deltaTime); 
         lifeStart++;
-        Debug.Log(Vector3.Magnitude(pb.velocity));
+        //Debug.Log(Vector3.Magnitude(pb.velocity));
         if (lifeStart >= lifeDuration)        
         {
             Despawn();
