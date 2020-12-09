@@ -28,33 +28,30 @@ public class PhysicsBody : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Using deltatime now..
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
         
         //Debug.Log(acceleration);
-        // Keeping IF in case the cubebehaviour collision check is needed for spheres
-        if (gameObject.GetComponent<CubeBehaviour>() != null)
-        {
-            if (gameObject.GetComponent<CubeBehaviour>().isColliding)
-            {
-                // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
-                //foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
-                //{
-                //    //Debug.Log(velocity);
-                //    if (cubes.tag == "Box")
-                //    {
-                //        //Debug.Log(acceleration);
-                //        Debug.Log("In Collision detection Response of Cube Cube");
-                        
-                //    }
-                //}
-                //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
-                //{
-                //    CollisionResponseSphere(spheres);
-                //}
-            }
-        }
+        //if (gameObject.GetComponent<CubeBehaviour>() != null)
+        //{
+        //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
+        //    {
+        //        // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
+        //        foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
+        //        {
+        //            //Debug.Log(velocity);
+        //            if (cubes.tag == "Box")
+        //            {
+        //                //Debug.Log(acceleration);
+        //                CollisionResponseCubeCube(cubes);
+        //            }
+        //        }
+        //        //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
+        //        //{
+        //        //    CollisionResponseSphere(spheres);
+        //        //}
+        //    }
+        //}
         //if (velocity.y != 0.0f)
         //{
             //Debug.Break();
@@ -79,7 +76,7 @@ public class PhysicsBody : MonoBehaviour
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
 
         Vector3 finalVelocity;
-        transform.position -= velocity * Time.fixedDeltaTime; // reposition
+        transform.position -= velocity * Time.deltaTime; // reposition
         if (cube.tag == "Floor")
         {
             velocity.y *= -1f * restitution;
@@ -119,8 +116,49 @@ public class PhysicsBody : MonoBehaviour
                 + ((2 * cubePB.mass) / (mass + cubePB.mass)) * cubePB.velocity;
             velocity = finalVelocity * restitution;
         }
+    }
 
+    // using the impulse formula
+    public void CollisionResponseCube(CubeBehaviour cube, Vector3 normal)
+    {
+        //PhysicsBody pb = GetComponent<PhysicsBody>();
+        PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
 
+        Vector3 finalVelocity;
+        transform.position -= velocity * Time.deltaTime; // reposition
+        if (cube.tag == "Floor")
+        {
+            velocity.y *= -1f * restitution;
+
+            // Gave a min threshold value for velocity
+            // so when it goes lower to that, v = 0, and ball will stop moving
+            if (velocity.y <= 0.15)
+            {
+                //Debug.Break();
+                //Debug.Log("Landed and less than 1.0f");
+                velocity.y = 0.0f;
+
+                // Experimenting with acceleration a bit. 
+                acceleration.y = 0.0f;
+            }
+        }
+        else if (cube.tag == "WallZ")
+        {
+            // check which direction of z and x axis and then perform the rebound
+            velocity.z *= -1 * restitution;
+            //if (velocity.z < 0)
+            //{
+            //    sphere.transform.position.z -= sphere.getRadius();
+            //}
+        }
+        else if (cube.tag == "WallX")
+        {
+            velocity.x *= -1 * restitution;
+        }
+        else
+        {
+
+        }
     }
 
     public void CollisionResponseSphere(SphereProperties sphere)

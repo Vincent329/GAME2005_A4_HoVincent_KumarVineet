@@ -65,17 +65,13 @@ public class CollisionManager : MonoBehaviour
             (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
         {
-           
+            Debug.Log("Collision happening on " + a);
             if (!a.contacts.Contains(b))
             {
                 //Debug.Break();
                 Debug.Log("In contains function..");
                 a.contacts.Add(b);
                 a.isColliding = true;
-                b.isColliding = true;
-                Vector3 normals = a.transform.position - b.transform.position;
-                // if check pending ... generic box behavior implement here...
-                // CollisionResponseCubeCube(cubes);
                 if (a.tag == "Box")
                 {
                     a.GetComponent<PhysicsBody>().CollisionResponseCubeCube(b);
@@ -89,7 +85,8 @@ public class CollisionManager : MonoBehaviour
                 Debug.Log("In remove contains function..");
                 a.contacts.Remove(b);
                 a.isColliding = false;
-                b.isColliding = false;
+                //b.isColliding = false;
+
             }
 
         }
