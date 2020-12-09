@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Contacts
+public class Manifold
 {
-    public GameObject contact;
-    public Vector3 getNormal;
+    SphereProperties sphere;
+    CubeBehaviour cube;
+    Vector3 normal;
+    Vector3 relativeVelocity;
+    float penetrationDistance;
 }
 
 [System.Serializable]
@@ -61,11 +64,12 @@ public class CollisionManager : MonoBehaviour
 
     public static void CheckAABBs(CubeBehaviour a, CubeBehaviour b)
     {
+        PhysicsBody aPB = a.GetComponent<PhysicsBody>();
         if ((a.min.x <= b.max.x && a.max.x >= b.min.x) &&
             (a.min.y <= b.max.y && a.max.y >= b.min.y) &&
             (a.min.z <= b.max.z && a.max.z >= b.min.z))
         {
-            Debug.Log("Collision happening on " + a);
+            //Debug.Log("Collision happening on " + a);
             if (!a.contacts.Contains(b))
             {
                 //Debug.Break();
@@ -75,6 +79,7 @@ public class CollisionManager : MonoBehaviour
                 if (a.tag == "Box")
                 {
                     a.GetComponent<PhysicsBody>().CollisionResponseCubeCube(b);
+                    
                 }
             }
         }
@@ -82,7 +87,7 @@ public class CollisionManager : MonoBehaviour
         {
             if (a.contacts.Contains(b))
             {
-                Debug.Log("In remove contains function..");
+                //Debug.Log("In remove contains function..");
                 a.contacts.Remove(b);
                 a.isColliding = false;
                 //b.isColliding = false;
@@ -99,7 +104,7 @@ public class CollisionManager : MonoBehaviour
         float x = Math.Max(cube.min.x, Math.Min(sphere.transform.position.x, cube.max.x));
         float y = Math.Max(cube.min.y, Math.Min(sphere.transform.position.y, cube.max.y));
         float z = Math.Max(cube.min.z, Math.Min(sphere.transform.position.z, cube.max.z));
-        
+
         // Storing this point
         Vector3 clampingPoint = new Vector3(x,y,z);
         // Calculating Distance now
@@ -130,7 +135,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
                 sphere.isColliding = true; // this checks for a split second
                 cube.sphereContacts.Add(sphere);
-                sphere.GetComponent<PhysicsBody>().CollisionResponseCube(cube);
+                sphere.GetComponent<PhysicsBody>().CollisionResolveSphereCube(cube, reversedVector);
                 cube.isColliding = true;
             }
         }

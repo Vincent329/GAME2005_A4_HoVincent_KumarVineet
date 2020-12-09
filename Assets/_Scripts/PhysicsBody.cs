@@ -21,8 +21,15 @@ public class PhysicsBody : MonoBehaviour
 
     void OnEnable()
     {
-        velocity = forward * speed;
-        acceleration = new Vector3(0.0f, gravity, 0.0f);
+        if (gameObject.GetComponent<SphereProperties>() != null)
+        {
+            velocity = forward * speed;
+            acceleration = new Vector3(0.0f, gravity, 0.0f);
+        }
+        else if(gameObject.GetComponent<CubeBehaviour>() != null)
+        {
+            acceleration = new Vector3(0.0f, gravity, 0.0f);
+        }
     }
 
     // Update is called once per frame
@@ -30,42 +37,42 @@ public class PhysicsBody : MonoBehaviour
     {
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
-        
-        //Debug.Log(acceleration);
-        //if (gameObject.GetComponent<CubeBehaviour>() != null)
-        //{
-        //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
-        //    {
-        //        // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
-        //        foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
-        //        {
-        //            //Debug.Log(velocity);
-        //            if (cubes.tag == "Box")
-        //            {
-        //                //Debug.Log(acceleration);
-        //                CollisionResponseCubeCube(cubes);
-        //            }
-        //        }
-        //        //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
-        //        //{
-        //        //    CollisionResponseSphere(spheres);
-        //        //}
-        //    }
-        //}
-        //if (velocity.y != 0.0f)
-        //{
+
+            //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
+            //    {
+            //        // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
+            //        foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
+            //        {
+            //            //Debug.Log(velocity);
+            //            if (cubes.tag == "Box")
+            //            {
+            //                //Debug.Log(acceleration);
+            //                CollisionResponseCubeCube(cubes);
+            //            }
+            //        }
+            //        //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
+            //        //{
+            //        //    CollisionResponseSphere(spheres);
+            //        //}
+            //    }
+            //}
+            //if (velocity.y != 0.0f)
+            //{
             //Debug.Break();
-           
-        //}
-       
-    }
+
+            //}
+
+        }
 
     // creating a separate class for cube cube collision response for now
     public void CollisionResponseCubeCube(CubeBehaviour cube)
     {
         Debug.Log("In Response of Cube Cube");
-        velocity.y *= 0.0f;
-        acceleration.y *= 0.0f;
+        if (cube.tag == "Floor")
+        {
+            velocity.y *= 0.0f;
+            acceleration.y *= 0.0f;
+        }
     }
 
 
@@ -119,7 +126,7 @@ public class PhysicsBody : MonoBehaviour
     }
 
     // using the impulse formula
-    public void CollisionResponseCube(CubeBehaviour cube, Vector3 normal)
+    public void CollisionResolveSphereCube(CubeBehaviour cube, Vector3 normal)
     {
         //PhysicsBody pb = GetComponent<PhysicsBody>();
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
@@ -155,9 +162,48 @@ public class PhysicsBody : MonoBehaviour
         {
             velocity.x *= -1 * restitution;
         }
-        else
+        else if (cube.tag == "Box")
         {
+            Debug.Log("BoxCollision");
+            Vector3 relativeVelocity = cubePB.velocity - velocity;
+            Debug.Log("Relative Velocity " + relativeVelocity);
 
+            // find if the objects are moving towards each other
+            float velAlongNormal = Vector3.Dot(relativeVelocity, normal);
+            Debug.Log("Velocity Along Normal " + velAlongNormal);
+
+            //if (velAlongNormal > 0)
+            //{
+            //    Debug.Log("this happening?");
+            //    return;
+            //}
+
+            float e = Mathf.Min(restitution, cubePB.restitution);
+            Debug.Log("Restitution: " + e);
+
+
+            float j = -(1 - e) * velAlongNormal;
+            Debug.Log("j with restitution change " + j);
+            float inverseMassSphere = 1 / mass;
+            float inverseMassCube = 1 / cubePB.mass;
+            Debug.Log("Inverse of Sphere " + inverseMassSphere);
+            Debug.Log("Inverse of Cube " + inverseMassCube);
+        
+
+            j /= (inverseMassSphere + inverseMassCube);
+            Debug.Log("j value " + j);
+
+            Vector3 impulse = j * normal;
+            Debug.Log("Impulse: " + impulse);
+
+            velocity -= inverseMassSphere * impulse * speed;
+            velocity *= restitution;
+            cubePB.velocity.x += inverseMassCube * impulse.x;
+            cubePB.velocity.z += inverseMassCube * impulse.z;
+            
+
+            Debug.Log("NewVelocity " + velocity);
+            //Debug.Break();
         }
     }
 
