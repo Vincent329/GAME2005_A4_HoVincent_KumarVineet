@@ -53,7 +53,7 @@ public class SphereProperties : MonoBehaviour
         //Debug.Log(Vector3.Magnitude(pb.velocity));
         if (lifeStart >= lifeDuration)        
         {
-            Despawn();
+            //Despawn();
         }
     }
 

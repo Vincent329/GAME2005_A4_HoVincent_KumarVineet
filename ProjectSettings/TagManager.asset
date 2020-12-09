@@ -8,6 +8,7 @@ TagManager:
   - Floor
   - WallX
   - WallZ
+  - Box
   layers:
   - Default
   - TransparentFX

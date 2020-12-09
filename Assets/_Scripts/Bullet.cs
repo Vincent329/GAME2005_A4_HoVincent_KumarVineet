@@ -22,30 +22,29 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         
-        //if ()
-        {
+      
            //Move();
            // CheckCollision();
            //Debug.Log("Update -> Active()");
-        }
+        
     }
 
     void Move()
     {
         //m_velocity += m_acceleration;
-        //transform.position += m_velocity * deltaTime;
+       // transform.position += m_velocity * deltaTime;
     }
 
     void CheckCollision()
     {
         //Debug.Log(m_velocity.x );
         //Debug.Log("In Check Collision Of Bullets.");
-        if(transform.position.y <= groundLevel)
-        {
-            m_velocity = new Vector3(0.0f, 0.0f, 0.0f);
-            m_acceleration = new Vector3(0.0f, 0.0f, 0.0f);
+        //if(transform.position.y <= groundLevel)
+        //{
+          //  m_velocity = new Vector3(0.0f, 0.0f, 0.0f);
+           // m_acceleration = new Vector3(0.0f, 0.0f, 0.0f);
             
-        }
+        //}
     }
 
     private void Reset()
