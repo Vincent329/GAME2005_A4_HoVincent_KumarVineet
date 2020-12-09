@@ -135,7 +135,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
                 sphere.isColliding = true; // this checks for a split second
                 cube.sphereContacts.Add(sphere);
-                sphere.GetComponent<PhysicsBody>().CollisionResolveSphereCube(cube, reversedVector);
+                sphere.GetComponent<PhysicsBody>().CollisionResolveSphereCube(cube, normalVector);
                 cube.isColliding = true;
             }
         }
