@@ -91,7 +91,10 @@ public class CollisionManager : MonoBehaviour
                 a.contacts.Remove(b);
                 a.isColliding = false;
                 //b.isColliding = false;
-
+                if (a.tag == "Box" && aPB.hitFloor == false)
+                {
+                    aPB.acceleration.y = aPB.gravity;
+                }
             }
 
         }
