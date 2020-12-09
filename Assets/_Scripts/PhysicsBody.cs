@@ -198,7 +198,7 @@ public class PhysicsBody : MonoBehaviour
             Vector3 impulse = j * normal;
             Debug.Log("Impulse: " + impulse);
 
-            velocity -= inverseMassSphere * impulse * speed;
+            velocity -= inverseMassSphere * impulse * (speed/2);
             velocity *= restitution;
             cubePB.velocity.x += inverseMassCube * impulse.x;
             cubePB.velocity.z += inverseMassCube * impulse.z;
