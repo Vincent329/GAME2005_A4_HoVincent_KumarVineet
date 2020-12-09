@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -138,7 +138,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
                 sphere.isColliding = true; // this checks for a split second
                 cube.sphereContacts.Add(sphere);
-                sphere.GetComponent<PhysicsBody>().CollisionResponseCube(cube);
+                sphere.GetComponent<PhysicsBody>().CollisionResolveSphereCube(cube, normalVector);
                 cube.isColliding = true;
             }
         }
