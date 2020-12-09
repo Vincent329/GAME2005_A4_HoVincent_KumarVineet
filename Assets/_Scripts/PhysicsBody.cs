@@ -12,6 +12,7 @@ public class PhysicsBody : MonoBehaviour
     public Vector3 velocity;
     public Vector3 acceleration;
     public float restitution; // bounciness
+    public bool hitFloor;
 
     public float speed; // speed of velocity
     public float gravity;
@@ -30,6 +31,7 @@ public class PhysicsBody : MonoBehaviour
         else if(gameObject.GetComponent<CubeBehaviour>() != null)
         {
             acceleration = new Vector3(0.0f, gravity, 0.0f);
+            hitFloor = false;
         }
     }
 
@@ -38,6 +40,11 @@ public class PhysicsBody : MonoBehaviour
     {
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity * Time.deltaTime;
+        if (gameObject.GetComponent<CubeBehaviour>() != null && hitFloor)
+        {
+            velocity.y = 0;
+            acceleration.y = 0;
+        }    
 
             //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
             //    {
@@ -56,12 +63,12 @@ public class PhysicsBody : MonoBehaviour
             //        //    CollisionResponseSphere(spheres);
             //        //}
             //    }
-            //}
             //if (velocity.y != 0.0f)
             //{
             //Debug.Break();
 
             //}
+
 
         }
 
@@ -70,6 +77,12 @@ public class PhysicsBody : MonoBehaviour
     {
         Debug.Log("In Response of Cube Cube");
         if (cube.tag == "Floor")
+        {
+            velocity.y *= 0.0f;
+            acceleration.y *= 0.0f;
+            hitFloor = true;
+        } 
+        else if (cube.tag == "Box")
         {
             velocity.y *= 0.0f;
             acceleration.y *= 0.0f;
@@ -131,9 +144,6 @@ public class PhysicsBody : MonoBehaviour
     {
         //PhysicsBody pb = GetComponent<PhysicsBody>();
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
-        Debug.Log("In Collision Response using NORMALS");
-        Debug.Log(normal);
-        Vector3 finalVelocity;
         transform.position -= velocity * Time.deltaTime; // reposition
         if (cube.tag == "Floor")
         {
