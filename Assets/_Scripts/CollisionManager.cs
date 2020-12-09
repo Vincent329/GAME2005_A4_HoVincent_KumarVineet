@@ -73,7 +73,7 @@ public class CollisionManager : MonoBehaviour
             if (!a.contacts.Contains(b))
             {
                 //Debug.Break();
-                Debug.Log("In contains function..");
+               // Debug.Log("In contains function..");
                 a.contacts.Add(b);
                 a.isColliding = true;
                 if (a.tag == "Box")
@@ -87,7 +87,7 @@ public class CollisionManager : MonoBehaviour
         {
             if (a.contacts.Contains(b))
             {
-                //Debug.Log("In remove contains function..");
+                Debug.Log("In remove contains function..");
                 a.contacts.Remove(b);
                 a.isColliding = false;
                 //b.isColliding = false;
@@ -135,7 +135,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log(sphere.name + " is Colliding with " + cube.name + " !");
                 sphere.isColliding = true; // this checks for a split second
                 cube.sphereContacts.Add(sphere);
-                sphere.GetComponent<PhysicsBody>().CollisionResolveSphereCube(cube, reversedVector);
+                sphere.GetComponent<PhysicsBody>().CollisionResponseCube(cube);
                 cube.isColliding = true;
             }
         }

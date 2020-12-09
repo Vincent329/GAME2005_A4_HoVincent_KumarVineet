@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -130,7 +131,8 @@ public class PhysicsBody : MonoBehaviour
     {
         //PhysicsBody pb = GetComponent<PhysicsBody>();
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
-
+        Debug.Log("In Collision Response using NORMALS");
+        Debug.Log(normal);
         Vector3 finalVelocity;
         transform.position -= velocity * Time.deltaTime; // reposition
         if (cube.tag == "Floor")
