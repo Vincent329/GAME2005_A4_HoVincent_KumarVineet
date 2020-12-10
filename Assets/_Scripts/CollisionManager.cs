@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -58,7 +58,6 @@ public class CollisionManager : MonoBehaviour
                 }
             }
         }
-
     }
         
 
@@ -73,7 +72,7 @@ public class CollisionManager : MonoBehaviour
             if (!a.contacts.Contains(b))
             {
                 //Debug.Break();
-                Debug.Log("In contains function..");
+               // Debug.Log("In contains function..");
                 a.contacts.Add(b);
                 a.isColliding = true;
                 if (a.tag == "Box")
@@ -98,6 +97,8 @@ public class CollisionManager : MonoBehaviour
             }
 
         }
+
+       
     }
 
     // need to check collision for spheres
