@@ -240,7 +240,7 @@ MonoBehaviour:
   friction: 0.25
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  restitution: 5
+  restitution: 0.7
   hitFloor: 0
   speed: 0
   gravity: -9.8
@@ -282,7 +282,7 @@ MonoBehaviour:
   friction: 0.5
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  restitution: 5
+  restitution: 0.5
   hitFloor: 0
   speed: 0
   gravity: -9.8

@@ -97,6 +97,20 @@ public class PhysicsBody : MonoBehaviour
             velocity.y *= 0.0f;
             acceleration.y *= 0.0f;
         }
+        else if (cube.tag == "WallZ")
+        {
+            // check which direction of z and x axis and then perform the rebound
+            velocity.z *= -1 * restitution;
+            Debug.Log("In Debug Log");
+            //if (velocity.z < 0)
+            //{
+            //    sphere.transform.position.z -= sphere.getRadius();
+            //}
+        }
+        else if (cube.tag == "WallX")
+        {
+            velocity.x *= -1 * restitution;
+        }
     }
 
     // responding to the collision by changing the relative velocity of objects
@@ -243,8 +257,8 @@ public class PhysicsBody : MonoBehaviour
 
             velocity -= inverseMassSphere * impulse;
             //velocity *= restitution;
-            cubePB.velocity.x += inverseMassCube * impulse.x;
-            cubePB.velocity.z += inverseMassCube * impulse.z;
+            cubePB.velocity.x += inverseMassCube * impulse.x* (float)friction;
+            cubePB.velocity.z += inverseMassCube * impulse.z* (float)friction;
 
             // COMMENTING -----
             //velocity -= inverseMassSphere * frictionImpulse;
