@@ -111,6 +111,10 @@ public class CollisionManager : MonoBehaviour
 
         // Storing this point
         Vector3 clampingPoint = new Vector3(x,y,z);
+        // for the actual vector in between
+        Vector3 distancePoint = sphere.transform.position - clampingPoint; 
+        
+
         // Calculating Distance now
         double distance = Math.Sqrt(
             (x - sphere.transform.position.x) * (x - sphere.transform.position.x) +
@@ -128,11 +132,13 @@ public class CollisionManager : MonoBehaviour
 
             if (!cube.sphereContacts.Contains(sphere))
             {
-                Vector3 closestPoint = new Vector3(x, y, z);
-                Vector3 normalVector = clampingPoint.normalized;
-                Vector3 reversedVector = ((clampingPoint * (-1))).normalized;
-                //Debug.Log("Closest Point Vector: " + closestPoint);
-                //Debug.Log("Normal Vector: " + normalVector);
+                //Vector3 closestPoint = new Vector3(x, y, z);
+                Vector3 normalVector = distancePoint.normalized;
+                //Vector3 reversedVector = ((clampingPoint * (-1))).normalized;
+                if (cube.tag == "Box")
+                {
+                    Debug.Log("Normal Vector: " + normalVector);
+                }
                 //Debug.Log("reversed normal Vector: " + reversedVector);
                 //Debug.Break();
 

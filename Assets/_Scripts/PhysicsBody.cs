@@ -152,8 +152,9 @@ public class PhysicsBody : MonoBehaviour
     {
         //PhysicsBody pb = GetComponent<PhysicsBody>();
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
+
         transform.position -= velocity * Time.deltaTime; // reposition
-        Debug.Log("Cube movement = " + velocity);
+       // Debug.Log("Cube movement = " + velocity);
         if (cube.tag == "Floor")
         {
             velocity.y *= -1f * restitution;
@@ -192,31 +193,35 @@ public class PhysicsBody : MonoBehaviour
 
             // find if the objects are moving towards each other
             float velAlongNormal = Vector3.Dot(relativeVelocity, normal);
-            
+
             // Find tangent for friction
-            Vector3 tangentVectorForFriction = relativeVelocity - Vector3.Dot(relativeVelocity, normal) * normal;
+            Vector3 tangentVectorForFriction = relativeVelocity - velAlongNormal * normal;
             // normalization
             //tangentVectorForFriction.Normalize();
             //Debug.Log("Velocity Along Normal " + velAlongNormal);
-
-            //if (velAlongNormal > 0)
-            //{
-            //    Debug.Log("this happening?");
-            //    return;
-            //}
 
             float e = Mathf.Min(restitution, cubePB.restitution);
             float minFriction = Mathf.Min((float)friction, (float)cubePB.friction);
             //Debug.Log("Restitution: " + e);
 
+            //if (velAlongNormal > 0)
+            //{
+            //    Debug.Log("this happening?");
+
+            //    ////velocity *= restitution;
+            //    //cubePB.velocity.x += velocity.x * e;
+            //    //cubePB.velocity.z += velocity.z * e;
+            //    //velocity.x -= velocity.x * e;
+            //    //velocity.z -= velocity.z * e;
+
+            //    return;
+            //}
 
             // Directly
             float j = -(1 - e) * velAlongNormal;
 
             // With Friction
             float jt = -(1 - e) * Vector3.Dot(relativeVelocity, tangentVectorForFriction);
-
-            Vector3 frictionImpulse;
 
             friction = Math.Sqrt(friction * cubePB.friction);
            
@@ -236,13 +241,10 @@ public class PhysicsBody : MonoBehaviour
             Vector3 impulse = jt * normal;
            // Debug.Log("Impulse: " + impulse);
 
-          
-           
             velocity -= inverseMassSphere * impulse;
             //velocity *= restitution;
             cubePB.velocity.x += inverseMassCube * impulse.x;
             cubePB.velocity.z += inverseMassCube * impulse.z;
-
 
             // COMMENTING -----
             //velocity -= inverseMassSphere * frictionImpulse;
