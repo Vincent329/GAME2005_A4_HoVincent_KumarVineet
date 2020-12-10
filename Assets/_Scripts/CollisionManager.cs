@@ -58,7 +58,6 @@ public class CollisionManager : MonoBehaviour
                 }
             }
         }
-
     }
         
 
@@ -87,7 +86,7 @@ public class CollisionManager : MonoBehaviour
         {
             if (a.contacts.Contains(b))
             {
-                Debug.Log("In remove contains function..");
+                //Debug.Log("In remove contains function..");
                 a.contacts.Remove(b);
                 a.isColliding = false;
                 //b.isColliding = false;
@@ -98,6 +97,8 @@ public class CollisionManager : MonoBehaviour
             }
 
         }
+
+       
     }
 
     // need to check collision for spheres

@@ -30,7 +30,7 @@ public class Gun : MonoBehaviour
             bullet.GetComponent<PhysicsBody>().forward = transform.forward;
             //Debug.Log("Bullet Forward " + bullet.GetComponent<PhysicsBody>().forward);
             bullet.SetActive(true);
-            Debug.Log("Velocity on Spawn " + bullet.GetComponent<PhysicsBody>().velocity);
+            //Debug.Log("Velocity on Spawn " + bullet.GetComponent<PhysicsBody>().velocity);
         }
     }
 }
