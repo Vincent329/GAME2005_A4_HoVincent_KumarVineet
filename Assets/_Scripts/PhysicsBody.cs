@@ -184,11 +184,13 @@ public class PhysicsBody : MonoBehaviour
 
                 // Experimenting with acceleration a bit. 
                 acceleration.y = 0.0f;
-            } if (Vector3.Magnitude(velocity) < 0.15f) 
+            } 
+            
+            //Debug.Log("Velocity of sphere = "+ (Vector3.Magnitude(velocity)));
+            // Earlier threshold 0.15 (bug)
+            if (Vector3.Magnitude(velocity) < 0.61f)
             {
                 this.GetComponent<SphereProperties>().Despawn();
-                
-                
             }
         }
         else if (cube.tag == "WallZ")
@@ -267,8 +269,7 @@ public class PhysicsBody : MonoBehaviour
            // Debug.Log("Impulse: " + impulse);
 
             velocity -= inverseMassSphere * impulse;
-            Debug.Log("New Velocity " + velocity);
-            //velocity *= restitution;
+            velocity *= restitution;
             cubePB.velocity.x += inverseMassCube * impulse.x;
             cubePB.velocity.z += inverseMassCube * impulse.z;
 
