@@ -46,7 +46,6 @@ public class PhysicsBody : MonoBehaviour
     void Update()
     {
         velocity += (acceleration * Time.deltaTime);
-        transform.position += velocity * Time.deltaTime;
         if (typeOfObject == 1)
         {
             //Debug.Log("Velocity = " + velocity);
@@ -56,40 +55,46 @@ public class PhysicsBody : MonoBehaviour
         {
             velocity.y = 0;
             acceleration.y = 0;
-        }    
+            velocity *= (1 - friction);
+        }
 
-            //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
-            //    {
-            //        // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
-            //        foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
-            //        {
-            //            //Debug.Log(velocity);
-            //            if (cubes.tag == "Box")
-            //            {
-            //                //Debug.Log(acceleration);
-            //                CollisionResponseCubeCube(cubes);
-            //            }
-            //        }
-            //        //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
-            //        //{
-            //        //    CollisionResponseSphere(spheres);
-            //        //}
-            //    }
-            //if (velocity.y != 0.0f)
-            //{
-            //Debug.Break();
+        transform.position += velocity * Time.deltaTime;
 
-            //}
+        //    if (gameObject.GetComponent<CubeBehaviour>().isColliding)
+        //    {
+        //        // this foreach loop is handling cube on cubes, do another foreach check for the number of spheres
+        //        foreach (CubeBehaviour cubes in gameObject.GetComponent<CubeBehaviour>().contacts)
+        //        {
+        //            //Debug.Log(velocity);
+        //            if (cubes.tag == "Box")
+        //            {
+        //                //Debug.Log(acceleration);
+        //                CollisionResponseCubeCube(cubes);
+        //            }
+        //        }
+        //        //foreach (SphereProperties spheres in gameObject.GetComponent<CubeBehaviour>().sphereContacts)
+        //        //{
+        //        //    CollisionResponseSphere(spheres);
+        //        //}
+        //    }
+        //if (velocity.y != 0.0f)
+        //{
+        //Debug.Break();
+
+        //}
     }
 
     // creating a separate class for cube cube collision response for now
     public void CollisionResponseCubeCube(CubeBehaviour cube)
     {
+        transform.position -= velocity * Time.fixedDeltaTime; // reposition
         //Debug.Log("In Response of Cube Cube");
         if (cube.tag == "Floor")
         {
             velocity.y *= 0.0f;
             acceleration.y *= 0.0f;
+            
+            Debug.Log("Velocity " + velocity);
             hitFloor = true;
         } 
         else if (cube.tag == "Box")
@@ -120,7 +125,6 @@ public class PhysicsBody : MonoBehaviour
         PhysicsBody cubePB = cube.GetComponent<PhysicsBody>();
 
         Vector3 finalVelocity;
-        transform.position -= velocity * Time.deltaTime; // reposition
         if (cube.tag == "Floor")
         {
             velocity.y *= -1f * restitution;
@@ -265,7 +269,8 @@ public class PhysicsBody : MonoBehaviour
 
             jt = Mathf.Min(jt, j * friction);
 
-            Vector3 impulse = j * normal * 3;
+            Vector3 impulse = j * normal * 5;
+            // impulse is acceleration
            // Debug.Log("Impulse: " + impulse);
 
             velocity -= inverseMassSphere * impulse;

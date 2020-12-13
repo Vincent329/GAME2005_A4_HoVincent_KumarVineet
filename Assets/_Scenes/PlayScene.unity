@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f25a0e395344043bf3d728afc13b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 150
+  mass: 15
   friction: 0.25
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
@@ -278,8 +278,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f25a0e395344043bf3d728afc13b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 200
-  friction: 0.5
+  mass: 10
+  friction: 0.25
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   restitution: 0.5

@@ -10,7 +10,7 @@ public class SphereProperties : MonoBehaviour
     // Start is called before the first frame update
     //public Vector3 forward;
     public float speed = 5;
-    float lifeDuration = 700; // counting up to 500 frames
+    float lifeDuration = 1500; // counting up to 500 frames
     float lifeStart;
     public bool isColliding;
     static int staticNumber;
@@ -51,9 +51,9 @@ public class SphereProperties : MonoBehaviour
         //transform.Translate(forward * speed * Time.deltaTime); 
         lifeStart++;
         //Debug.Log(Vector3.Magnitude(pb.velocity));
-        if (lifeStart >= lifeDuration)        
+        if (transform.position.y <= 0.0f || lifeStart > lifeDuration)        
         {
-           // Despawn();
+            Despawn();
         }
     }
 
