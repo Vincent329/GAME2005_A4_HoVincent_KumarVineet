@@ -3,15 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Manifold
-{
-    SphereProperties sphere;
-    CubeBehaviour cube;
-    Vector3 normal;
-    Vector3 relativeVelocity;
-    float penetrationDistance;
-}
-
 [System.Serializable]
 public class CollisionManager : MonoBehaviour
 {
@@ -75,10 +66,11 @@ public class CollisionManager : MonoBehaviour
                // Debug.Log("In contains function..");
                 a.contacts.Add(b);
                 a.isColliding = true;
-                if (a.tag == "Box")
+                b.isColliding = true;
+                // if the acting object is a box
+                if (a.tag == "Box") 
                 {
-                    a.GetComponent<PhysicsBody>().CollisionResponseCubeCube(b);
-                    
+                    a.GetComponent<PhysicsBody>().CollisionResponseCubeCube(b);   
                 }
             }
         }
@@ -89,7 +81,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log("In remove contains function..");
                 a.contacts.Remove(b);
                 a.isColliding = false;
-                //b.isColliding = false;
+                b.isColliding = false;
                 if (a.tag == "Box" && aPB.hitFloor == false)
                 {
                     aPB.acceleration.y = aPB.gravity;
@@ -156,6 +148,7 @@ public class CollisionManager : MonoBehaviour
                 //Debug.Log(sphere.name + " is Not Colliding with " + cube.name + " !");
                 cube.sphereContacts.Remove(sphere);
                 sphere.isColliding = false;
+               // cube.isColliding = false;
             }
         }
     }

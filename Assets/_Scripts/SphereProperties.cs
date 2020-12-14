@@ -80,9 +80,4 @@ public class SphereProperties : MonoBehaviour
     {
         return m_radius;
     }
-
-    public void reverseY(CubeBehaviour cube)
-    {
-     
-    }
 }

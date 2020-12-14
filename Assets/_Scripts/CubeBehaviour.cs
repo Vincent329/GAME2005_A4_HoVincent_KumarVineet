@@ -28,7 +28,6 @@ public class CubeBehaviour : MonoBehaviour
 
         bounds = meshFilter.mesh.bounds;
         size = bounds.size;
-
     }
 
     // Update is called once per frame

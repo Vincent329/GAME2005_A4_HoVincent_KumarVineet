@@ -109,8 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32f25a0e395344043bf3d728afc13b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass: 15
-  friction: 0.1
+  mass: 3
+  friction: 0
+  staticFriction: 0
+  kineticFriction: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
   restitution: 0.7
