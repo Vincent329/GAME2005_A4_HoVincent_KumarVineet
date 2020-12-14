@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //Math.Max requirement
 using System;
+using UnityEditor.Experimental.SceneManagement;
 
 [System.Serializable]
 public class SphereProperties : MonoBehaviour
@@ -24,16 +25,19 @@ public class SphereProperties : MonoBehaviour
     Vector3 m_scale;
     Vector3 min, max;
 
+    private Renderer renderer1;
+
     // public PhysicsBody
     void Awake()
     {
+        renderer1 = GetComponent<MeshRenderer>();
         lifeStart = 0;
         bulletNumber = staticNumber++;
-
+        Debug.Log("Bullet Awake");
         // Calculate Radius
         meshFilter = GetComponent<MeshFilter>();
         m_bounds = meshFilter.mesh.bounds;
-
+        renderer1.material.color = Color.cyan;
         // Sphere is same all side, so any one of x,y,z is ok.
         m_radius = m_bounds.extents.x;
         m_radius = Math.Max(m_bounds.extents.x, Math.Max(m_bounds.extents.y, m_bounds.extents.z));
