@@ -7,12 +7,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
+using Slider = UnityEngine.UI.Slider;
 
 [System.Serializable]
 public class PhysicsBody : MonoBehaviour
 {
     // Start is called before the first frame update
     public float mass;
+    public Slider MassSliderValue;
     public float friction; // use for slowing down, implement soon
 
     // static and kinetic friction

@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    public bool inPauseState = false;
+    public static Gun sharedInstance;
     // Start is called before the first frame update
     void Start()
     {
+        sharedInstance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
         // GUN UPDATE FOR GETTING INPUT OF LMB!
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !inPauseState)
         {
+           
             ShootBall();
         }
     }
