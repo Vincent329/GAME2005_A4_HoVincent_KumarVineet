@@ -110,12 +110,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 3
+  MassSliderValue: {fileID: 0}
   friction: 0
   staticFriction: 0
   kineticFriction: 0
   velocity: {x: 0, y: 0, z: 0}
   acceleration: {x: 0, y: 0, z: 0}
-  restitution: 0.7
+  restitution: 0.5856147
   hitFloor: 0
   speed: 15
   gravity: -9.8

@@ -32,6 +32,7 @@ public class PhysicsBody : MonoBehaviour
     
     public int typeOfObject;
 
+
     // Debug Text
     Text debugText;
 
@@ -337,4 +338,25 @@ public class PhysicsBody : MonoBehaviour
         }
         return true;
     }
+
+    // --------- SLIDER ---------
+    public void setMass(float value)
+    {
+        mass = value;
+        //Debug.Log("Updated Slider mass = " + mass);
+    }
+
+    public void setFriction(float value)
+    {
+        friction = value;
+        //Debug.Log("Updated Slider friction = " + friction);
+    }
+
+    public void setRestitution(float value)
+    {
+        restitution = value;
+        Debug.Log("Updated Slider Restitution = " + restitution);
+    }
+
+    
 }
