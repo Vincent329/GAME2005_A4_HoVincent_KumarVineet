@@ -257,6 +257,9 @@ public class PhysicsBody : MonoBehaviour
             cubePB.velocity.x += inverseMassCube * impulse.x * 3;
             cubePB.velocity.z += inverseMassCube * impulse.z * 3;
 
+
+  
+
             // Applying friction
 
             //jt /= (inverseMassSphere + inverseMassCube);
@@ -280,12 +283,37 @@ public class PhysicsBody : MonoBehaviour
     {
         PhysicsBody spheresPB = sphere.GetComponent<PhysicsBody>();
 
-        Vector3 finalVelocity;
-        finalVelocity =
-              ((mass - spheresPB.mass) / (mass + spheresPB.mass)) * velocity
-              + ((2 * spheresPB.mass) / (mass + spheresPB.mass)) * spheresPB.velocity;
-        velocity -= finalVelocity * restitution / speed;
-        spheresPB.velocity += finalVelocity * restitution / speed;
+        transform.position -= velocity * Time.deltaTime;
+        sphere.transform.position -= spheresPB.velocity * Time.deltaTime;
+        //Vector3 finalVelocity;
+        //finalVelocity =
+        //      ((mass - spheresPB.mass) / (mass + spheresPB.mass)) * velocity
+        //      + ((2 * spheresPB.mass) / (mass + spheresPB.mass)) * spheresPB.velocity;
+
+        //velocity -= finalVelocity * restitution / 30;
+        //spheresPB.velocity += finalVelocity * restitution / 30;
+        Vector3 distance = transform.position - sphere.transform.position;
+        Vector3 normal = Vector3.Normalize(distance);
+
+        Vector3 relativeVelocity = spheresPB.velocity - velocity;
+
+        // find if the objects are moving towards each other
+        float velAlongNormal = Vector3.Dot(relativeVelocity, normal);
+        float e = Mathf.Min(restitution, spheresPB.restitution);
+        float j = -(1 - e) * velAlongNormal;
+
+        float inverseMassSphere = 1 / mass;
+        j /= (inverseMassSphere + inverseMassSphere);
+
+
+        Vector3 impulse = j * normal;
+       
+
+        // impulse is acceleration
+
+        velocity -= inverseMassSphere * impulse * 3;
+        spheresPB.velocity += inverseMassSphere * impulse * 3;
+
     }
 
     public bool frictionCheck(CubeBehaviour cube, float impulse, float staticFriction)

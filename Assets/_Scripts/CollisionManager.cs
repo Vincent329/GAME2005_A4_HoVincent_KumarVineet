@@ -164,6 +164,7 @@ public class CollisionManager : MonoBehaviour
         if (distance <= sumRadius)
         {
             Debug.Log("Sphere Collision");
+            a.GetComponent<PhysicsBody>().CollisionResponseSphere(b);
         }
     }
 
